@@ -3,12 +3,13 @@ import { View, StyleSheet } from "react-native";
 import { Button } from "@react-native-material/core";
 import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "../services/Store";
-import { RouteProp } from "@react-navigation/native";
+import { RouteProp, useNavigation } from "@react-navigation/native";
 import { Phone } from "../models/Phone";
 import { PhonesList } from "../models/PhoneList";
 import PhoneComponent from "../components/PhoneComponent";
 import { addPhone, delPhone } from "../services/FavoritesSlice";
-import { RouteTypeList } from "../services/Routes";
+import { RouteNames, RouteTypeList } from "../services/Routes";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 /**
  * Définition des propriétés de la page d'un téléphone.
@@ -24,6 +25,10 @@ interface PhoneAppProperties {
 export function PhoneApp(props: Readonly<PhoneAppProperties>) {
 	// Indique que le téléphone fait partie des favoris.
 	const [isFavorite, setIsFavorite] = useState<boolean>(false);
+
+	// Permet la navigation entre les pages.
+		const navigation =
+			useNavigation<NativeStackNavigationProp<RouteTypeList>>();
 
 	// Le téléphone à afficher.
 	const [phone, setPhone] = useState<Phone|undefined>(undefined);
@@ -71,13 +76,16 @@ export function PhoneApp(props: Readonly<PhoneAppProperties>) {
 				}
 				style={styles.button}
 				color={isFavorite ? "red" : "green"}
-				onPress={() =>
+				onPress={() => {
 					dispatch(
 						isFavorite
 							? delPhone(phone)
 							: addPhone(phone)
 					)
-				}
+					if(!isFavorite)
+						// Si l'on vient d'ajouter le téléphone en favoris, on se dirige vers les favoris.
+						navigation.navigate(RouteNames.Favorites)
+				}}
 			/>
 		</View>
 	);

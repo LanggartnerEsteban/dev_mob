@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import { useSelector } from "react-redux";
 import { IRootState } from "../services/Store";
 import { Phone } from "../models/Phone";
@@ -16,9 +16,13 @@ export function FavoritesPhonesApp() {
 
 	return (
 		<View>
-			{favorites?.map((phone) => (
-				<PhoneCard key={phone.id} phone={phone} />
-			))}
+			{favorites?.length > 0 ? (
+				favorites?.map((phone) => (
+					<PhoneCard key={phone.id} phone={phone} />
+				))
+			) : (
+				<Text>{`Vous n'avez aucun favoris`}</Text>
+			)}
 		</View>
 	);
 }
