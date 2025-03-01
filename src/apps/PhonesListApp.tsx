@@ -1,6 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
 import { Text, ScrollView, StyleSheet } from "react-native";
-import { RouteNames, RouteTypeList } from "../services/Routes";
 import React, { useState } from "react";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Button, TextInput } from "@react-native-material/core";
@@ -9,6 +8,7 @@ import { IRootState } from "../services/Store";
 import { PhonesList } from "../models/PhoneList";
 import PhoneCard from "../components/PhoneCard";
 import { Phone } from "../models/Phone";
+import { RouteNames, RouteTypeList } from "../models/Routing";
 
 /**
  * Description de l'état du composant de la liste des annonces à afficher.

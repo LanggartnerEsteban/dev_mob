@@ -4,11 +4,11 @@ import { Button } from "@react-native-material/core";
 import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "../services/Store";
 import { RouteProp } from "@react-navigation/native";
-import { RouteTypeList } from "../services/Routes";
 import { Phone } from "../models/Phone";
 import { PhonesList } from "../models/PhoneList";
 import PhoneComponent from "../components/PhoneComponent";
 import { addPhone, delPhone } from "../services/FavoritesSlice";
+import { RouteTypeList } from "../models/Routing";
 
 /**
  * Définition des propriétés de la page d'un téléphone.
