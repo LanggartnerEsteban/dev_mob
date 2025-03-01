@@ -8,7 +8,7 @@ import { Phone } from "../models/Phone";
 import { PhonesList } from "../models/PhoneList";
 import PhoneComponent from "../components/PhoneComponent";
 import { addPhone, delPhone } from "../services/FavoritesSlice";
-import { RouteTypeList } from "../models/Routing";
+import { RouteTypeList } from "../services/Routes";
 
 /**
  * Définition des propriétés de la page d'un téléphone.
@@ -19,25 +19,14 @@ interface PhoneAppProperties {
 }
 
 /**
- * Définition des informations d'état du composant d'affichage d'un téléphone.
- */
-interface PhoneAppState {
-	// Le téléphone que l'on doit afficher.
-	phone: Phone;
-
-	// Indique que le téléphone fait partie des favoris.
-	isFavorite: boolean;
-}
-
-/**
  * Composant d'affichage des informations complètes pour un film.
  */
 export function PhoneApp(props: Readonly<PhoneAppProperties>) {
-	// Les informations de l'état du composant
-	const [state, setState] = useState<PhoneAppState>({
-		phone: {} as Phone,
-		isFavorite: false,
-	});
+	// Indique que le téléphone fait partie des favoris.
+	const [isFavorite, setIsFavorite] = useState<boolean>(false);
+
+	// Le téléphone à afficher.
+	const [phone, setPhone] = useState<Phone|undefined>(undefined);
 
 	// Permet la connexion avec le store.
 	const dispatch = useDispatch();
@@ -53,46 +42,40 @@ export function PhoneApp(props: Readonly<PhoneAppProperties>) {
 		const id = props.route.params.phoneId;
 
 		// On sauvegarde dans notre état le téléphone qui correspond à l'identifiant passé en paramètre.
-		setState(
-			Object.assign({}, state, {
-				phone: PhonesList.getInstance()
-					.getPhones()
-					.find((phone) => phone.id === id),
-			})
+		setPhone(PhonesList.getInstance()
+			.getPhones()
+			.find((phone) => phone.id === id)
 		);
 	}, []);
 
 	// Méthode lancée à l'initialisation du téléphone et à la modification des favoris.
 	useEffect(() => {
 		// On vérifie la présence de ce téléphone dans les favoris.
-		setState(
-			Object.assign({}, state, {
-				isFavorite:
-					favorites.find(
-						(favorite) => favorite.id === state.phone?.id
-					) != null,
-			})
-		);
-	}, [favorites, state.phone]);
+		setIsFavorite(
+			favorites.find(
+				(favorite) => favorite.id === phone?.id
+			) != null,
+		)
+	}, [favorites, phone]);
 
 	return (
 		<View>
-			{state?.phone && ( // Si on a récupéré le téléphone, on affiche les informations.
-				<PhoneComponent phone={state.phone} />
+			{phone && ( // Si on a récupéré le téléphone, on affiche les informations.
+				<PhoneComponent phone={phone} />
 			)}
 			<Button
 				title={
-					state.isFavorite
+					isFavorite
 						? "Supprimer des favoris"
 						: "Ajouter au favoris"
 				}
 				style={styles.button}
-				color={state.isFavorite ? "red" : "green"}
+				color={isFavorite ? "red" : "green"}
 				onPress={() =>
 					dispatch(
-						state.isFavorite
-							? delPhone(state.phone)
-							: addPhone(state.phone)
+						isFavorite
+							? delPhone(phone)
+							: addPhone(phone)
 					)
 				}
 			/>

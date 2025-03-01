@@ -4,7 +4,7 @@ import { Surface } from "@react-native-material/core";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Phone } from "../models/Phone";
-import { RouteNames, RouteTypeList } from "../models/Routing";
+import { RouteNames, RouteTypeList } from "../services/Routes";
 
 /**
  * Propriétés du composant d'affichage d'une carte munie des informations d'un téléphone mis en vente.

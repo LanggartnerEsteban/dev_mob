@@ -6,7 +6,22 @@ import { Store } from "./Store";
 import { PhonesListApp } from "../apps/PhonesListApp";
 import { PhoneApp } from "../apps/PhoneApp";
 import { FavoritesPhonesApp } from "../apps/FavoritesPhonesApp";
-import { RouteNames, RouteTypeList } from "../models/Routing";
+
+// Définit les types de toutes les routes possibles.
+export type RouteTypeList = {
+	PhonesList: undefined;
+	Phone: { phoneId: string };
+	Favorites: undefined;
+};
+
+/**
+ * Définition de toutes les routes possibles.
+ */
+export enum RouteNames {
+	PhonesList = "PhonesList",
+	Phone = "Phone",
+	Favorites = "Favorites",
+}
 
 /**
  * Ajout des routes et des composants associés à l'application.

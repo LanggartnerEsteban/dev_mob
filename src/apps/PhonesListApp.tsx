@@ -8,7 +8,7 @@ import { IRootState } from "../services/Store";
 import { PhonesList } from "../models/PhoneList";
 import PhoneCard from "../components/PhoneCard";
 import { Phone } from "../models/Phone";
-import { RouteNames, RouteTypeList } from "../models/Routing";
+import { RouteNames, RouteTypeList } from "../services/Routes";
 
 /**
  * Description de l'état du composant de la liste des annonces à afficher.
