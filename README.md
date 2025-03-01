@@ -9,3 +9,4 @@ Utilisation de `react-native-material`
 ## Fonctionnalités supplémentaires
 - Ajout de la recherche par nom de vendeur.
 - Ajout du tri sur le prix des téléphones.
+- Ajout d'une légère animation sur la page des favoris.
